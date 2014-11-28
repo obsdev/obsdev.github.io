@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>jsonPostTest.html</title>
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	</head>
+	<body>
+		<form action="http://jacobus.actionnest.com:4000/auth/login" id="loginForm">
+			<input type="text" name="username" placeholder="username">
+			<input type="password" name="password" placeholder="password">
+			<input type="submit" value="login">
+		</form>
+		<div id="result"></div>
+		<script>
+			$("#loginForm").submit(function(event) {
+				event.preventDefault();
+				var $form = $(this), un = $form.find("input[name='username']").val(), pw = $form.find("input[name='password']").val() , url = $form.attr("action");
+				var posting = $.post(url, {username:un,password:pw},null,"json");
+				posting.done(function(data) {
+					var content = JSON.stringify(data, undefined, 2);
+					$("#result").empty().append(content);
+				});
+			});
+		</script>
+	</body>
+</html>
